@@ -8,5 +8,4 @@ if [ -z "$RTSP_URL" ]; then
   exit 1
 fi
 
-ffmpeg -rtsp_transport tcp -i "$RTSP_URL" -f mjpeg -q:v 5 -r 5 -s 640x360 - | \
-  ffmpeg -f mjpeg -i - -f mpjpeg -listen 1 -i - -fflags nobuffer http://0.0.0.0:8080/live.mjpg
+ffmpeg -rtsp_transport tcp -i "$RTSP_URL" -f mpjpeg -q:v 5 -r 5 -s 640x360 -listen 1 -fflags nobuffer http://0.0.0.0:8080/live.mjpg
