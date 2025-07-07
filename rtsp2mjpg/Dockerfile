@@ -1,25 +1,8 @@
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
+FROM alpine:latest
 
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apk add --no-cache ffmpeg nginx bash
 
-# Install requirements
-RUN \
-    apk add --no-cache \
-        nginx \
-        ffmpeg \
-        curl \
-        bash \
-    && rm -rf /var/cache/apk/*
+COPY run.sh /run.sh
+RUN chmod a+x /run.sh
 
-# Copy rootfs
-COPY rootfs /
-
-# Labels voor Home Assistant
-LABEL \
-    io.hass.name="RTSP2MJPG" \
-    io.hass.description="Convert RTSP streams to MJPEG" \
-    io.hass.arch="${BUILD_ARCH}" \
-    io.hass.type="addon" \
-    io.hass.version=${BUILD_VERSION}
+CMD [ "/run.sh" ]
