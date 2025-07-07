@@ -1,0 +1,37 @@
+name: "RTSP2MJPG"
+version: "1.0.0"
+slug: "rtsp2mjpg"
+description: >-
+  Convert RTSP streams to MJPEG for easy integration with Home Assistant.
+  Based on eroji/rtsp2mjpg with FFmpeg and Nginx proxy.
+url: "https://github.com/dof250/hassio-addons"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+startup: application
+boot: manual
+ports:
+  8081/tcp: 8090
+ports_description:
+  8081/tcp: "Web interface for MJPEG stream access"
+map:
+  - type: addon_config
+    read_only: false
+options:
+  rtsp_url: "rtsp://example.com:554/stream"
+  ffmpeg_input_opts: "-use_wallclock_as_timestamps 1"
+  ffmpeg_output_opts: "-async 1 -vsync 1"
+  ffserver_log_level: "error"
+  ffmpeg_log_level: "warning"
+schema:
+  rtsp_url: "str"
+  ffmpeg_input_opts: ""
+  ffmpeg_output_opts: ""
+  ffserver_log_level: "list(quiet|panic|fatal|error|warning|info|verbose|debug|trace)"
+  ffmpeg_log_level: "list(quiet|panic|fatal|error|warning|info|verbose|debug|trace)"
+ingress: true
+ingress_port: 8081
+panel_icon: "mdi:video-input-component"
