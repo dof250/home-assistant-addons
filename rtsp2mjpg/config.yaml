@@ -1,6 +1,6 @@
 {
   "name": "RTSP to MJPEG Proxy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "slug": "rtsp2mjpg",
   "description": "Convert RTSP stream to MJPEG for use in Home Assistant",
   "startup": "services",
